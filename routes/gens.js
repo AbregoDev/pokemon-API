@@ -5,7 +5,7 @@ var {
     createGen,
     modifyGen,
     deleteGen,
-} = require('../controllers/Gens');
+} = require('../controllers/gens');
 
 router.get('/', getGen);
 router.post('/', createGen);
