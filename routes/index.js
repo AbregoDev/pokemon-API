@@ -7,5 +7,6 @@ router.get('/', (req, res) => {
 router.use('/pokemons', require('./pokemons'));
 router.use('/categories', require('./categories'));
 router.use('/types', require('./types'));
+router.use('/gens', require('./gens'));
 
 module.exports = router;
