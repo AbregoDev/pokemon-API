@@ -19,7 +19,7 @@ Así mismo se contará con 4 entidades como pokémon, generación, tipo y catego
 Todas las entidades tienen funciones CRUD: Consultas, inserciones, modificaciones y eliminación de registros.
 #### Historias de usuario y Diagramas de caso de uso
 - [Historias de Usuario](https://github.com/AbregoDev/pokemon-API/blob/main/Historias%20de%20usuario.md)
-- Diagramas de Caso de uso
+- [Diagramas de Caso de uso](https://miro.com/welcomeonboard/NFVFNURaUG1EVXdiTE5ZZkJORzFxcnR0NUtWQzJYYW5vald5TWIwa28wOWF2WkVpSmVzeWtDdWdjbUlIMml3NHwzMDc0NDU3MzYzMzk0NDMwMDEw)
  
 ### Descripción técnica 
 #### Prerrequisitos
