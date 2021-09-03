@@ -1,26 +1,26 @@
 const Gen = require('../models/Gen')
 
-function createGen(req, res) {
-	let Gen = new Gen(req.body);
-	res.status(200).send(Gen);
+const createGen = (req, res) => {
+	const gen = {...req.body};
+	res.status(201).send(gen);
 }
 
-function getGen(req, res) {
-	let Gen1 = new Gen(1, 'Kanto', '');
-	let Gen2 = new Gen(2, 'Johto', '');
-	let Gen3 = new Gen(3, 'Hoenn', '');
-  	res.send([Gen1, Gen2, Gen3]);
+const getGen = (req, res) => {
+	const gen1 = new Gen(1, 'Kanto', 'url1');
+	const gen2 = new Gen(2, 'Johto', 'url2');
+	const gen3 = new Gen(3, 'Hoenn', 'url3');
+  	res.status(200).send([gen1, gen2, gen3]);
 }
 
-function modifyGen(req, res) {
-	let Gen = new Gen(1, 'Kanto', '');
-	let modifications = req.body;
-	Gen = {...Gen, ...modifications}
-	res.send(Gen);
+const modifyGen = (req, res) => {
+	let gen = new Gen(1, 'Kanto', 'url1');
+	const modifications = req.body;
+	gen = {...gen, ...modifications}
+	res.status(200).send(gen);
 }
 
-function deleteGen(req, res) {
-	res.status(200).send(`The ${req.params.name} Gen has been deleted`);
+const deleteGen = (req, res) => {
+	res.status(200).send(`The generation with id ${req.params.id} has been deleted`);
 }
 
 module.exports = {
@@ -28,4 +28,4 @@ module.exports = {
 	createGen,
 	modifyGen,
 	deleteGen,
-}
+};

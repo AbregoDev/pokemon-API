@@ -1,6 +1,6 @@
-var router = require('express').Router()
+const router = require('express').Router()
 
-var {
+const {
     getGen,
     createGen,
     modifyGen,

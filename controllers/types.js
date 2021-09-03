@@ -1,26 +1,26 @@
 const Type = require('../models/Type')
 
-function createType(req, res) {
-	let Type = new Type(req.body);
-	res.status(200).send(Type);
+const createType = (req, res) => {
+	const type = {...req.body};
+	res.status(201).send(type);
 }
 
-function getType(req, res) {
-	let Type1 = new Type('Grass', 'https://cdn2.bulbagarden.net/upload/thumb/a/a8/Grass_icon_SwSh.png/96px-Grass_icon_SwSh.png');
-	let Type3 = new Type('Fire', 'https://cdn2.bulbagarden.net/upload/thumb/a/ab/Fire_icon_SwSh.png/96px-Fire_icon_SwSh.png');
-	let Type4 = new Type('Flying', 'https://cdn2.bulbagarden.net/upload/thumb/b/b5/Flying_icon_SwSh.png/96px-Flying_icon_SwSh.png');
-  	res.send([Type1, Type3, Type4]);
+const getType = (req, res) => {
+	const type1 = new Type('Grass', 'https://cdn2.bulbagarden.net/upload/thumb/a/a8/Grass_icon_SwSh.png/96px-Grass_icon_SwSh.png');
+	const type2 = new Type('Fire', 'https://cdn2.bulbagarden.net/upload/thumb/a/ab/Fire_icon_SwSh.png/96px-Fire_icon_SwSh.png');
+	const type3 = new Type('Flying', 'https://cdn2.bulbagarden.net/upload/thumb/b/b5/Flying_icon_SwSh.png/96px-Flying_icon_SwSh.png');
+  	res.status(200).send([type1, type2, type3]);
 }
 
-function modifyType(req, res) {
-	let Type = new Type('Grass', '');
-	let modifications = req.body;
-	Type = {...Type, ...modifications}
-	res.send(Type);
+const modifyType = (req, res) => {
+	let type = new Type('Grass', 'url antigua...');
+	const modifications = req.body;
+	type = { ...type, ...modifications };
+	res.status(200).send(type);
 }
 
-function deleteType(req, res) {
-	res.status(200).send(`The ${req.params.name} Type has been deleted`);
+const deleteType = (req, res) => {
+	res.status(200).send(`The ${req.params.id} type has been deleted`);
 }
 
 module.exports = {
@@ -28,4 +28,4 @@ module.exports = {
 	createType,
 	modifyType,
 	deleteType,
-}
+};
