@@ -1,15 +1,15 @@
 ## ﻿ Pokemon-API (Equipo 18)
 
-Proyecto web para la creación de una API REST  que debe ofrecernos la posibilidad de crear, consultar, actualizar y eliminar registros de una base de datos basada en la primera generación de Pokemon.
+Proyecto web para la creación de una API REST  que debe ofrecernos la posibilidad de crear, consultar, actualizar y eliminar registros de una base de datos basada en la primera generación de Pokémon.
 
-Este repositorio contiene una aplicación desarrollada en ExpressJS para una API REST que ofrezca un CRUD de pokémones de primera generación.
-
-### Estructura del proyecto
- 
 En este proyecto contamos con 2 tipos de usuarios, viewer y administrator, donde:
 
  - **Viewer** (solo lectura): Puede realizar consultas de todo tipo, pero no puede hacer modificaciones, inserciones ni eliminaciones.
  - **Administrator**(Escritura y lectura): Puede realizar todas las consultas, además de insertar nuevos registros, así como modificaciones o eliminación de registros existentes.
+
+### Estructura del proyecto
+
+El proyecto se realizó utilizando el patrón MVC
 
 Así mismo se contará con 4 entidades: Pokémon, Generación, Tipo y Categoría, cada una con características individuales.
 
