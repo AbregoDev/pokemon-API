@@ -45,11 +45,11 @@ Cuando termine y estés listo para colaborar puedes iniciar un servidor local ut
     npm run dev
 #### Happy coding!!!
 ### Colaboradores:
-> - Ernesto Velasco Valdez
-> - José Antonio Aguilar Téllez
-> - María Fernanda Cota Pérez
-> - Bryan Daniel Moreno Abrego
-> - Juan Enrique Hernández Martínez
+> - [Ernesto Velasco Valdez](https://github.com/Ernestve)
+> - [José Antonio Aguilar Téllez](https://github.com/pepetellez)
+> - [María Fernanda Cota Pérez](https://github.com/mafer13cp)
+> - [Bryan Daniel Moreno Abrego](https://github.com/AbregoDev)
+> - [Juan Enrique Hernández Martínez](https://github.com/EnriqueHM)
 
 
 
