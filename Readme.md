@@ -1,19 +1,21 @@
-﻿## Pokemon-API (Equipo18)
-Proyecto web para la creación de una API REST  que debe ofrecernos la posibilidad de crear, consultar, actualizar y eliminar registros de una base de datos basada en la primera generación de Pokemon.
-### Estructura del proyecto  
+## ﻿ Pokemon-API (Equipo 18)
 
- 1. Para esta sección se deben incluir historias de usuario y Diagramas de Caso de uso para complementar la descripción.
+Proyecto web para la creación de una API REST  que debe ofrecernos la posibilidad de crear, consultar, actualizar y eliminar registros de una base de datos basada en la primera generación de Pokemon.
+
+Este repositorio contiene una aplicación desarrollada en ExpressJS para una API REST que ofrezca un CRUD de pokémones de primera generación.
+
+### Estructura del proyecto
  
-En este proyecto contamos con 2 tipos de usuarios viewer y administrator, donde:
+En este proyecto contamos con 2 tipos de usuarios, viewer y administrator, donde:
 
  - **Viewer** (solo lectura): Puede realizar consultas de todo tipo, pero no puede hacer modificaciones, inserciones ni eliminaciones.
  - **Administrator**(Escritura y lectura): Puede realizar todas las consultas, además de insertar nuevos registros, así como modificaciones o eliminación de registros existentes.
 
-Así mismo se contará con 4 entidades como pokémon, generación, tipo y categoría, cada una con características individuales.
+Así mismo se contará con 4 entidades: Pokémon, Generación, Tipo y Categoría, cada una con características individuales.
 
- - **Pokémon**: Número de podédex, nombre, url imagen, generación, tipo, categoría y debilidades
+ - **Pokémon**: Número de podédex, nombre, url de imagen, generación, tipo, categoría y debilidades
  - **Generación**: Número y nombre.
- - **Tipo**: Nombre y url imagen.
+ - **Tipo**: Nombre y url de imagen.
  - **Categoría**: Nombre
 
 Todas las entidades tienen funciones CRUD: Consultas, inserciones, modificaciones y eliminación de registros.
@@ -24,7 +26,7 @@ Todas las entidades tienen funciones CRUD: Consultas, inserciones, modificacione
 ### Descripción técnica 
 #### Prerrequisitos
 
-Se recomienda tener [Node.js](https://nodejs.org/) LTS instalado y funcionando correctamente junto con tu administrador de paquetes preferido por ejemplo [NPM](https://npmjs.org/), [Yarn](https://yarnpkg.com/), etc.
+Se requiere [Node.js](https://nodejs.org/) LTS junto con tu administrador de paquetes preferido por ejemplo [NPM](https://npmjs.org/), [Yarn](https://yarnpkg.com/), etc.
 #### Instalación
 ###### Nota: Este ejemplo es utilizando NPM
 Clona el repositorio y ejecuta el siguiente comando en tu terminal sobre la ruta donde este fue clonado.
