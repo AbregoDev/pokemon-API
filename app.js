@@ -3,10 +3,23 @@ const express = require('express');
 const app = express();
 
 // Body Parser
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use('/v1', require('./routes'));
+//Configuracion de base de datos
+const mongoose = require('mongoose');
+                                        //Se agrega la base a que nos conectamos
+mongoose.connect("")
+
+mongoose.set("debug", true)
+
+//Modelos
+require('./models/Pokemon')
+
+
+//Routes
+app.use('/v1', require('./routes'))
 
 // Start server
 const PORT = 3000;

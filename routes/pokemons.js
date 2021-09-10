@@ -8,6 +8,7 @@ const {
 } = require('../controllers/pokemons');
 
 router.get('/', getPokemon);
+router.get ('/:id', getPokemon);
 router.post('/', createPokemon);
 router.put('/:id', modifyPokemon);
 router.delete('/:id', deletePokemon);
