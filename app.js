@@ -1,28 +1,32 @@
+//Configuracion de base de datos
+const mongoose = require('mongoose');
+
 // Express
 const express = require('express');
 const app = express();
 
 // Body Parser
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// const bodyParser = require('body-parser');
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-//Configuracion de base de datos
-const mongoose = require('mongoose');
-                                        //Se agrega la base a que nos conectamos
-mongoose.connect("")
+// Mongoose config
+const user = 'pokemon';
+const pass = 'gAR3PWIaw70zUJO4';
+const db = 'BEDU-WEB';
+const connectionString = `mongodb+srv://${user}:${pass}@cluster0.ewfpk.mongodb.net/${db}?retryWrites=true&w=majority`;
+mongoose.connect(connectionString);
 
-mongoose.set("debug", true)
+mongoose.set("debug", true);
 
 //Modelos
-require('./models/Pokemon')
-
+require('./models/Pokemon');
 
 //Routes
-app.use('/v1', require('./routes'))
+app.use('/v1', require('./routes'));
 
 // Start server
 const PORT = 3000;
 app.listen(PORT, () => {
 	console.log(`Server listening on http://localhost:${PORT}/v1`);
-})
+});
