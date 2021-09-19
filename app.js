@@ -21,6 +21,7 @@ mongoose.set("debug", true);
 
 //Modelos
 require('./models/Pokemon');
+require('./models/Gen');
 
 //Routes
 app.use('/v1', require('./routes'));

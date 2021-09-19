@@ -4,10 +4,10 @@ const Pokemon = mongoose.model("Pokemon")
 const createPokemon = (req, res, next) => {
     const pokemon = new Pokemon(req.body);
     pokemon.save()
-    .then(pok => {
-        res.status(200).send(pok)
-    })
-    .catch(next);
+        .then(pok => {
+            res.status(200).send(pok.publicData())
+        })
+        .catch(next);
 }
 
 function getPokemon(req, res, next) {
@@ -15,7 +15,7 @@ function getPokemon(req, res, next) {
         Pokemon.findOne({ pokedexNumber: req.params.id})
             .then(pok => { 
                 if(pok) {
-                    res.status(200).send(pok);
+                    res.status(200).send(pok.publicData());
                 } else {
                     res.status(404).send('No se ha encontrado');
                 }
@@ -24,7 +24,7 @@ function getPokemon(req, res, next) {
     } else {
         Pokemon.find()
             .then(pokemons => {
-                res.send(pokemons)
+                res.send(pokemons.map(pokemon => pokemon.publicData()))
             }).catch(next)
     }
 }
@@ -62,7 +62,7 @@ const modifyPokemon = (req, res, next) => {
             
             pokemon.save()
                 .then(updated => {
-                    res.status(201).json(updated.publicData());
+                    res.status(201).send(updated.publicData());
                 })
                 .catch(next);
         }).catch(next)
