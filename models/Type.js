@@ -1,10 +1,15 @@
-class Type {
+const mongoose = require('mongoose');
 
-    constructor(id, name, imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-    }
+const TypeSchema = new mongoose.Schema({
+    type: { type: String },
+    imageUrl: { type: String },
+}, { collection: 'Type' });
+
+TypeSchema.methods.publicData = function () {
+    return {
+        type: this.type,
+        imageUrl: this.type,
+    };
 }
 
-module.exports = Type;
+mongoose.model('Type', TypeSchema);

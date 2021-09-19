@@ -1,10 +1,15 @@
-class Gen {
+const mongoose = require('mongoose');
 
-    constructor(id, name, imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-    }
+const GenSchema = new mongoose.Schema({
+    number: { type: Number },
+    name: { type: String },
+}, { collection: 'Gen' });
+
+GenSchema.methods.publicData = function () {
+    return {
+        number: this.number,
+        name: this.name,
+    };
 }
 
-module.exports = Gen;
+mongoose.model('Gen', GenSchema);

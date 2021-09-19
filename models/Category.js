@@ -1,9 +1,13 @@
-class Category {
-    
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
+const mongoose = require('mongoose');
+
+const CategorySchema = new mongoose.Schema({
+    name: { type: String },
+}, { collection: 'Category' });
+
+CategorySchema.methods.publicData = function () {
+    return {
+        name: this.name,
+    };
 }
 
-module.exports = Category;
+mongoose.model('Category', CategorySchema);

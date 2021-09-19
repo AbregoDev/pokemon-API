@@ -12,7 +12,6 @@ const PokemonSchema = new mongoose.Schema({
 
 PokemonSchema.methods.publicData = function () { //No cambiar a arrow por que se rompe xD
     return {
-        id: this.id,
         pokedexNumber: this.pokedexNumber,
         name: this.name,
         gen: this.gen,
