@@ -1,27 +1,67 @@
-const Type = require('../models/Type')
+const mongoose = require('mongoose');
+const Type = mongoose.model('Type')
 
-const createType = (req, res) => {
-	const type = {...req.body};
-	res.status(201).send(type);
+const getType = (req, res, next) => {
+	if (req.params.type) {
+        Type.findOne({ type: req.params.type})
+            .then(type => { 
+                if(type) {
+					console.log(type);
+                    res.status(200).send(type.publicData());
+                } else {
+                    res.status(404).send('No se ha encontrado');
+                }
+            })
+            .catch(next);
+    } else {
+        Type.find()
+            .then(types => {
+                res.send(types.map(type => type.publicData()));
+            }).catch(next);
+    }
 }
 
-const getType = (req, res) => {
-	const type1 = new Type(1,'Grass', 'https://cdn2.bulbagarden.net/upload/thumb/a/a8/Grass_icon_SwSh.png/96px-Grass_icon_SwSh.png');
-	const type2 = new Type(2,'Fire', 'https://cdn2.bulbagarden.net/upload/thumb/a/ab/Fire_icon_SwSh.png/96px-Fire_icon_SwSh.png');
-	const type3 = new Type(3,'Flying', 'https://cdn2.bulbagarden.net/upload/thumb/b/b5/Flying_icon_SwSh.png/96px-Flying_icon_SwSh.png');
-  	res.status(200).send([type1, type2, type3]);
+const createType = (req, res, next) => {
+	const type = new Type(req.body);
+	type.save()
+        .then(type => {
+            res.status(200).send(type.publicData());
+        })
+        .catch(next);
 }
 
-const modifyType = (req, res) => {
-	let type = new Type(1,'Grass', 'url antigua...');
-	const modifications = req.body;
-	type = { ...type, ...modifications };
-	res.status(200).send(type);
+const modifyType = (req, res, next) => {
+	Type.findOne({type: req.params.type})
+	.then(type => {
+		if(!type){
+			return res.sendStatus(404);
+		}
+		const nuevaInfo = req.body;
+		if (nuevaInfo.type){
+			type.type = nuevaInfo.type;
+		}
+		if (nuevaInfo.imageUrl){
+			type.imageUrl = nuevaInfo.imageUrl;
+		}
+		type.save()
+			.then(updated => {
+				res.status(201).send(updated.publicData());
+			})
+			.catch(next);
+	})
+	.catch(next);
 }
 
-const deleteType = (req, res) => {
-	res.status(200).send(`The ${req.params.id} type has been deleted`);
+
+const deleteType = (req, res, next) => {
+	Type.findOne({type: req.params.type})
+	.then(del => {
+		res.status(200)
+		.send(`The Type with name ${req.params.type} has been deleted successfully`);
+	})
+	.catch(next);
 }
+
 
 module.exports = {
 	getType,
