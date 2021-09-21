@@ -39,71 +39,44 @@ const getGen = (req, res, next) => {
     }
 }
 
-const modifyGen = (req, res) => {
-    if(req.params.id) {
-        Gen.findOne({ number: req.params.id })
-            .then(gen => {
-                if (!gen) {
-                    return res.sendStatus(404);
-                }
-                
-                const nuevaInfoGen = req.body;
-    
-                if (nuevaInfoGen.number) {
-                    gen.number = nuevaInfoGen.number
-                }
-                if (nuevaInfoGen.name) {
-                    gen.name = nuevaInfoGen.name
-                }
-                
-                gen.save()
-                    .then(updated => {
-                        res.status(201).send(updated.publicData());
-                    })
-                    .catch(next);
-            }).catch(next);
-    } else {
-        Gen.findOne({ name: req.params.name })
-            .then(gen => {
-                if (!gen) {
-                    return res.sendStatus(404);
-                }
-                
-                const nuevaInfoGen = req.body;
-    
-                if (nuevaInfoGen.number) {
-                    gen.number = nuevaInfoGen.number
-                }
-                if (nuevaInfoGen.name) {
-                    gen.name = nuevaInfoGen.name
-                }
-                
-                gen.save()
-                    .then(updated => {
-                        res.status(201).send(updated.publicData());
-                    })
-                    .catch(next);
-            }).catch(next);
-    }
+const modifyGen = (req, res, next) => {
+    Gen.findOne({ number: req.params.id })
+        .then(gen => {
+            if (!gen) {
+                return res.sendStatus(404);
+            }
+            
+            const nuevaInfoGen = req.body;
+
+            if(nuevaInfoGen.number) {
+                gen.number = nuevaInfoGen.number
+            }
+            if(nuevaInfoGen.name) {
+                gen.name = nuevaInfoGen.name
+            }
+            
+            gen.save()
+                .then(updated => {
+                    res.status(201).send(updated.publicData());
+                })
+                .catch(next);
+        }).catch(next);
 }
 
 const deleteGen = (req, res, next) => {
-    if(req.params.id) {
-        Gen.findOneAndDelete({ number: req.params.id })
-            .then(r => {
-                res.status(200)
-                    .send(`The Generation with number ${req.params.id} has been deleted successfully`);
-            })
-            .catch(next);
-    } else {
-        Gen.findOneAndDelete({ name: req.params.name })
-            .then(r => {
-                res.status(200)
-                    .send(`The Generation with number ${req.params.id} has been deleted successfully`);
-            })
-            .catch(next);
-    }
+    Gen.findOneAndDelete({ number: req.params.id })
+        .then(deletedItem => {
+            if(!deletedItem) {
+                return res.status(400).send('No se ha encontrado...');
+            }
+
+            res.status(200)
+                .send(`The Generation with number ${req.params.id} has been deleted successfully`);
+        })
+        .catch(next);
 }
+
+// TODO: count
 
 module.exports = {
 	getGen,

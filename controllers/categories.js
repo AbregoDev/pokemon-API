@@ -51,6 +51,7 @@ const modifyCategory = (req, res, next) => {
 const deleteCategory = (req, res, next) => {
 	Category.findOneAndDelete({ name: req.params.id })
 	.then(r => {
+        // TODO: Verificar que elimine algo
 		res.status(200)
 			.send(`The category with name ${req.params.id} has been deleted successfully`);
 	})

@@ -56,12 +56,14 @@ const modifyType = (req, res, next) => {
 const deleteType = (req, res, next) => {
 	Type.findOne({type: req.params.type})
 	.then(del => {
+        // TODO: Verificar que elimine algo
 		res.status(200)
 		.send(`The Type with name ${req.params.type} has been deleted successfully`);
 	})
 	.catch(next);
 }
 
+// TODO: count
 
 module.exports = {
 	getType,

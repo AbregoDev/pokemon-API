@@ -11,7 +11,6 @@ const createPokemon = (req, res, next) => {
 }
 
 const getPokemon = (req, res, next) => {
-    console.log(req.query);
     if (req.params.id) {
         Pokemon.findOne({ pokedexNumber: req.params.id})
             .then(pok => { 
@@ -25,6 +24,10 @@ const getPokemon = (req, res, next) => {
     } else {
         Pokemon.find()
             .then(pokemons => {
+                // if(Object.getOwnPropertyNames(req.query).length !== 0) {
+                //     console.log('hay params');
+                // }
+
                 res.send(pokemons.map(pokemon => pokemon.publicData()))
             }).catch(next);
     }
@@ -83,6 +86,7 @@ const modifyPokemon = (req, res, next) => {
 const deletePokemon = (req, res, next) => {
     Pokemon.findOneAndDelete({ pokedexNumber: req.params.id })
         .then(r => {
+            // TODO: Ver que elimine algo
             res.status(200)
                 .send(`The Pokémon with Pokedex id ${req.params.id} has been deleted successfully`);
         })
