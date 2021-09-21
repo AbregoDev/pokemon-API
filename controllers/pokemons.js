@@ -10,7 +10,8 @@ const createPokemon = (req, res, next) => {
         .catch(next);
 }
 
-function getPokemon(req, res, next) {
+const getPokemon = (req, res, next) => {
+    console.log(req.query);
     if (req.params.id) {
         Pokemon.findOne({ pokedexNumber: req.params.id})
             .then(pok => { 
@@ -20,13 +21,24 @@ function getPokemon(req, res, next) {
                     res.status(404).send('No se ha encontrado');
                 }
             })
-            .catch(next)
+            .catch(next);
     } else {
         Pokemon.find()
             .then(pokemons => {
                 res.send(pokemons.map(pokemon => pokemon.publicData()))
-            }).catch(next)
+            }).catch(next);
     }
+}
+
+const countPokemon = (req, res, next) => {
+    Pokemon.countDocuments({}, function (err, count) {
+        if(err) {
+            res.send({ err });
+            next();
+        } else {
+            res.send({ count });
+        }
+    });
 }
 
 const modifyPokemon = (req, res, next) => {
@@ -82,4 +94,5 @@ module.exports = {
     createPokemon,
     modifyPokemon,
     deletePokemon,
+    countPokemon,
 };
