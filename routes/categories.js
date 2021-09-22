@@ -5,11 +5,11 @@ const {
     createCategory,
     modifyCategory,
     deleteCategory,
-    count
+    countCategory,
 } = require('../controllers/categories');
 
 router.get('/', getCategory);
-router.get('/count', count);
+router.get('/count', countCategory);
 router.get('/:id', getCategory)
 router.post('/', createCategory);
 router.put('/:id', modifyCategory);

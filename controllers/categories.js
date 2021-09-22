@@ -57,8 +57,7 @@ const deleteCategory = (req, res, next) => {
 	.catch(next);
 }
 
-function count (req, res, next) {
-    let categoria = req.params.cat
+function countCategory (req, res, next) {
     Category.aggregate([
             {'$count' : 'total'}
     ]).then(r => {
@@ -70,5 +69,5 @@ module.exports = {
 	createCategory,
 	modifyCategory,
 	deleteCategory,
-	count
+	countCategory
 };

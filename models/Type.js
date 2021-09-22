@@ -8,7 +8,7 @@ const TypeSchema = new mongoose.Schema({
 TypeSchema.methods.publicData = function () {
     return {
         type: this.type,
-        imageUrl: this.type,
+        imageUrl: this.imageUrl,
     };
 }
 

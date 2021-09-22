@@ -5,15 +5,14 @@ const {
     createGen,
     modifyGen,
     deleteGen,
+    countGen,
 } = require('../controllers/gens');
 
 router.get('/', getGen);
+router.get('/count',countGen)
 router.get('/:id', getGen);
-// router.getByName('/:name', getGen);
 router.post('/', createGen);
 router.put('/:id', modifyGen);
-// router.put('/:name', modifyGen);
 router.delete('/:id', deleteGen);
-// router.delete('/:name', deleteGen);
 
 module.exports = router;
