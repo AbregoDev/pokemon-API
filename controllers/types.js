@@ -63,11 +63,18 @@ const deleteType = (req, res, next) => {
 	.catch(next);
 }
 
-// TODO: count
+const countType = (req, res, next) => {
+    Type.aggregate([
+        {'$count' : 'total'}
+    ]).then(r => {
+    res.status(200).send(r)
+    }).catch(next)
+}
 
 module.exports = {
 	getType,
 	createType,
 	modifyType,
 	deleteType,
+	countType,
 };

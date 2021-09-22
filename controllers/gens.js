@@ -76,11 +76,18 @@ const deleteGen = (req, res, next) => {
         .catch(next);
 }
 
-// TODO: count
+const countGen = (req, res, next) => {
+    Gen.aggregate([
+        {'$count' : 'total'}
+    ]).then(r => {
+    res.status(200).send(r)
+    }).catch(next)
+}
 
 module.exports = {
 	getGen,
 	createGen,
 	modifyGen,
 	deleteGen,
+    countGen
 };
