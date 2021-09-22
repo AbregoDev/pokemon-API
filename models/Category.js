@@ -1,3 +1,4 @@
+// TODO: Reemplazar los espacios por guiones bajos en name
 const mongoose = require('mongoose');
 
 const CategorySchema = new mongoose.Schema({
