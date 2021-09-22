@@ -65,9 +65,9 @@ const modifyGen = (req, res, next) => {
 
 const deleteGen = (req, res, next) => {
     Gen.findOneAndDelete({ number: req.params.id })
-        .then(deletedItem => {
-            if(!deletedItem) {
-                return res.status(400).send('No se ha encontrado...');
+        .then(deletedGen => {
+            if(!deletedGen) {
+                return res.status(404).send(`Generation ${req.params.id} hasn't been found`);
             }
 
             res.status(200)

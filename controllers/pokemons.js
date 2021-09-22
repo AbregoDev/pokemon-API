@@ -12,23 +12,26 @@ const createPokemon = (req, res, next) => {
 
 const getPokemon = (req, res, next) => {
     if (req.params.id) {
-        Pokemon.findOne({ pokedexNumber: req.params.id})
-            .then(pok => { 
-                if(pok) {
-                    res.status(200).send(pok.publicData());
+        const fields = req.body.fields;
+
+        Pokemon.findOne({ pokedexNumber: req.params.id}, fields)
+            .then(pokemon => { 
+                if(pokemon) {
+                    res.status(200).send(pokemon.publicData());
                 } else {
                     res.status(404).send('No se ha encontrado');
                 }
             })
             .catch(next);
     } else {
-        Pokemon.find()
-            .then(pokemons => {
-                // if(Object.getOwnPropertyNames(req.query).length !== 0) {
-                //     console.log('hay params');
-                // }
+        const limit = req.body.limit;
+        const filter = req.body.filter;
+        const fields = req.body.fields;
 
-                res.send(pokemons.map(pokemon => pokemon.publicData()))
+        Pokemon.find(filter, fields)
+            .limit(limit)
+            .then(pokemons => {
+                res.send(pokemons.map(pokemon => pokemon.publicData()));
             }).catch(next);
     }
 }
@@ -85,8 +88,11 @@ const modifyPokemon = (req, res, next) => {
 
 const deletePokemon = (req, res, next) => {
     Pokemon.findOneAndDelete({ pokedexNumber: req.params.id })
-        .then(r => {
-            // TODO: Ver que elimine algo
+        .then(deletedPokemon => {
+            if(!deletedPokemon) {
+                return res.status(404).send(`Pokémon with number ${req.params.id} hasn't been found`);
+            }
+            
             res.status(200)
                 .send(`The Pokémon with Pokedex id ${req.params.id} has been deleted successfully`);
         })
