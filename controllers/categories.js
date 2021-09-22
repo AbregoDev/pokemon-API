@@ -13,10 +13,10 @@ const createCategory = (req, res, next) => {
 
 const getCategory = (req, res, next) => {
     if (req.params.id) {
-        Category.findOne({ name: req.params.id})
-            .then(cat => { 
-                if(cat) {
-                    res.status(200).send(cat.publicData());
+        Category.find({ name: new RegExp(req.params.id) })
+            .then(categories => { 
+                if(categories) {
+                    res.status(200).send(categories.map(category => category.publicData()))
                 } else {
                     res.status(404).send('No se ha encontrado');
                 }
