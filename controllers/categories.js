@@ -1,3 +1,4 @@
+// TODO: Cambiar nombre a "classfication" en todos lados
 const mongoose = require('mongoose');
 const Category = mongoose.model('Category');
 

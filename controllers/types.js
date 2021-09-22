@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Type = mongoose.model('Type')
 
 const getType = (req, res, next) => {
-	if (req.params.type) {
-        Type.findOne({ type: req.params.type})
+	if (req.params.id) {
+        const paragraphString = toParagraphCase(req.params.id.toLowerCase());
+        Type.findOne({ type: paragraphString })
             .then(type => { 
                 if(type) {
 					console.log(type);
@@ -69,6 +70,10 @@ const countType = (req, res, next) => {
     ]).then(r => {
     res.status(200).send(r[0])
     }).catch(next)
+}
+
+const toParagraphCase = (string) => {
+    return string[0].toUpperCase() + string.slice(1);
 }
 
 module.exports = {
