@@ -67,7 +67,7 @@ const countType = (req, res, next) => {
     Type.aggregate([
         {'$count' : 'total'}
     ]).then(r => {
-    res.status(200).send(r)
+    res.status(200).send(r[0])
     }).catch(next)
 }
 

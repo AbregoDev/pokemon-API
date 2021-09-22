@@ -62,7 +62,7 @@ function countCategory (req, res, next) {
     Category.aggregate([
             {'$count' : 'total'}
     ]).then(r => {
-        res.status(200).send(r)
+        res.status(200).send(r[0])
     }).catch(next)
 }
 module.exports = {

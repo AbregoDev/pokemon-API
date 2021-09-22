@@ -80,7 +80,7 @@ const countGen = (req, res, next) => {
     Gen.aggregate([
         {'$count' : 'total'}
     ]).then(r => {
-    res.status(200).send(r)
+    res.status(200).send(r[0])
     }).catch(next)
 }
 
