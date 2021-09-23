@@ -12,7 +12,8 @@ const createGen = (req, res, next) => {
 
 const getGen = (req, res, next) => {
 	if (req.params.id) {
-        Gen.findOne({ number: req.params.id})
+        const fields = req.body.fields;
+        Gen.findOne({ number: req.params.id}, fields)
             .then(gen => { 
                 if(gen) {
                     res.status(200).send(gen.publicData());
@@ -22,7 +23,8 @@ const getGen = (req, res, next) => {
             })
             .catch(next);
     } else if (req.params.name) {
-        Gen.findOne({ name: req.params.name})
+        const fields = req.body.fields;
+        Gen.findOne({ name: req.params.name}, fields)
             .then(gen => {
                 if(gen) {
                     res.status(200).send(gen.publicData());
@@ -32,7 +34,11 @@ const getGen = (req, res, next) => {
             })
             .catch(next);
     } else {
-        Gen.find()
+        const limit = req.body.limit;
+        const filter = req.body.filter;
+        const fields = req.body.fields;
+        Gen.find(filter, fields)
+            .limit(limit)
             .then(gens => {
                 res.send(gens.map(gen => gen.publicData()));
             }).catch(next);
