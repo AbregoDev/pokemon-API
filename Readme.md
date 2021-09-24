@@ -15,8 +15,8 @@ Así mismo se contará con 4 entidades: Pokémon, Generación, Tipo y Categoría
 
  - **Pokémon**: Número de podédex, nombre, url de imagen, generación, tipo, categoría y debilidades
  - **Generación**: Número y nombre.
- - **Tipo**: Nombre y url de imagen.
- - **Categoría**: Nombre
+ - **Tipo**: Número, nombre y url de imagen.
+ - **Categoría**: Número y nombre
 
 Todas las entidades tienen funciones CRUD: Consultas, inserciones, modificaciones y eliminación de registros.
 #### Historias de usuario y Diagramas de caso de uso
