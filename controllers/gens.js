@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Gen = mongoose.model('Gen');
 
+//Create new gen (POST)
 const createGen = (req, res, next) => {
 	const gen = new Gen(req.body);
 	gen.save()
@@ -10,6 +11,7 @@ const createGen = (req, res, next) => {
         .catch(next);
 }
 
+//Get all gens by ID (GET)
 const getGen = (req, res, next) => {
 	if (req.params.id) {
         const fields = req.body.fields;
@@ -18,7 +20,7 @@ const getGen = (req, res, next) => {
                 if(gen) {
                     res.status(200).send(gen.publicData());
                 } else {
-                    res.status(404).send('No se ha encontrado');
+                    res.status(404).send('Gen not found');
                 }
             })
             .catch(next);
@@ -29,7 +31,7 @@ const getGen = (req, res, next) => {
                 if(gen) {
                     res.status(200).send(gen.publicData());
                 } else {
-                    res.status(404).send('No se ha encontrado');
+                    res.status(404).send('Gen not found');
                 }
             })
             .catch(next);
@@ -45,6 +47,7 @@ const getGen = (req, res, next) => {
     }
 }
 
+//Modify gen by id (PUT)
 const modifyGen = (req, res, next) => {
     Gen.findOne({ number: req.params.id })
         .then(gen => {
@@ -52,13 +55,13 @@ const modifyGen = (req, res, next) => {
                 return res.sendStatus(404);
             }
             
-            const nuevaInfoGen = req.body;
+            const newInfoGen = req.body;
 
-            if(nuevaInfoGen.number) {
-                gen.number = nuevaInfoGen.number
+            if(newInfoGen.number) {
+                gen.number = newInfoGen.number
             }
-            if(nuevaInfoGen.name) {
-                gen.name = nuevaInfoGen.name
+            if(newInfoGen.name) {
+                gen.name = newInfoGen.name
             }
             
             gen.save()
@@ -69,6 +72,7 @@ const modifyGen = (req, res, next) => {
         }).catch(next);
 }
 
+//Delete gen by id (DELETE)
 const deleteGen = (req, res, next) => {
     Gen.findOneAndDelete({ number: req.params.id })
         .then(deletedGen => {
@@ -77,11 +81,12 @@ const deleteGen = (req, res, next) => {
             }
 
             res.status(200)
-                .send(`The Generation with number ${req.params.id} has been deleted successfully`);
+                .send(`The Generation ${req.params.id} has been deleted successfully`);
         })
         .catch(next);
 }
 
+//Count the number of registers of gen in the DB (rute /count)
 const countGen = (req, res, next) => {
     Gen.aggregate([
         {'$count' : 'total'}

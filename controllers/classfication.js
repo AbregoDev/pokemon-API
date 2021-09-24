@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Classfication = mongoose.model('Classfication');
 
-//Servicio de creación de nueva clasificación (POST)
+//Create new classfication (POST)
 const createClassfication = (req, res, next) => {
 	const classfication = new Classfication(req.body);
 	classfication.save()
@@ -11,7 +11,7 @@ const createClassfication = (req, res, next) => {
         .catch(next);
 }
 
-//Servicio que obtiene todas las clasificaciones y por Id (GET)
+//Get all classfications by ID (GET)
 const getClassfication = (req, res, next) => {
     if (req.params.id) {
 		/* const paragraphString = toParagraphCase(req.params.id.toLowerCase());
@@ -21,7 +21,7 @@ const getClassfication = (req, res, next) => {
                 if(classfication) {
                     res.status(200).send(classfication.map(classfication => classfication.publicData()))
                 } else {
-                    res.status(404).send('No se ha encontrado');
+                    res.status(404).send('Classfication not found');
                 }
             })
             .catch(next)
@@ -36,16 +36,16 @@ const getClassfication = (req, res, next) => {
             }).catch(next)
     }
 }
-//Servicio que modifica por id solamente el nombre de la clasificación (PUT)
+//Modify classfication by ID (PUT)
 const modifyClassfication = (req, res, next) => {
 	Classfication.findOne({ number: req.params.id }) 
 	.then(classfication => {
 		if (!classfication) {
 			return res.sendStatus(404);
 		}
-		const nuevaInfoClasificacion = req.body;
-		if (nuevaInfoClasificacion.name) {
-			classfication.name = nuevaInfoClasificacion.name
+		const newInfoClassfication = req.body;
+		if (newInfoClassfication.name) {
+			classfication.name = newInfoClassifcation.name
 		}
 		
 		classfication.save()
@@ -56,7 +56,7 @@ const modifyClassfication = (req, res, next) => {
 	}).catch(next);
 }
 
-//Servicio que borra por id numero (DELETE)
+//Delete classfication by ID (DELETE)
 const deleteClassfication = (req, res, next) => {
 	Classfication.findOneAndDelete({ number : req.params.id })
 	.then(deleteClassfication => {
@@ -64,12 +64,12 @@ const deleteClassfication = (req, res, next) => {
 			return res.status(404).send(`The classfication ${req.params.id} hasn't been found`);
 		}
 		res.status(200)
-			.send(`The classfication ${req.params.id} has been deleted successfully`);
+			.send(`The classfication ${req.params.name} has been deleted successfully`);
 	})
 	.catch(next);
 }
 
-//Servicio que cuenta el número de clasificaciones disponibles en la base de datos (Ruta /count)
+//Count the number of registers of classfication in the DB (rute /count)
 function countClassfication (req, res, next) {
     Classfication.aggregate([
             {'$count' : 'total'}
@@ -81,7 +81,7 @@ function countClassfication (req, res, next) {
     return string[0].toUpperCase() + string.slice(1);
 } */  //Esta función convierte la primer letra de un string a mayúscula en caso de ser necesario para el servicio (GET)
 
-//Se exportan los servicios para definir sus rutas
+//Export services to define rutes
 module.exports = {
 	getClassfication,
 	createClassfication,

@@ -1,27 +1,7 @@
 const mongoose = require('mongoose');
 const Type = mongoose.model('Type')
 
-const getType = (req, res, next) => {
-	if (req.params.id) {
-        const paragraphString = toParagraphCase(req.params.id.toLowerCase());
-        Type.findOne({ type: paragraphString })
-            .then(type => { 
-                if(type) {
-					console.log(type);
-                    res.status(200).send(type.publicData());
-                } else {
-                    res.status(404).send('No se ha encontrado');
-                }
-            })
-            .catch(next);
-    } else {
-        Type.find()
-            .then(types => {
-                res.send(types.map(type => type.publicData()));
-            }).catch(next);
-    }
-}
-
+//Create new type (POST)
 const createType = (req, res, next) => {
 	const type = new Type(req.body);
 	type.save()
@@ -31,18 +11,46 @@ const createType = (req, res, next) => {
         .catch(next);
 }
 
+//Get all types by ID (GET)
+const getType = (req, res, next) => {
+	if (req.params.id) {
+        //const paragraphString = toParagraphCase(req.params.id.toLowerCase());
+        Type.findOne({ type: paragraphString })
+            .then(type => { 
+                if(type) {
+					console.log(type);
+                    res.status(200).send(type.map(classfication => classfication.publicData()));
+                } else {
+                    res.status(404).send('Type not found');
+                }
+            })
+            .catch(next);
+    } else {
+		const limit = req.body.limit;
+		const filter = req.body.filter;
+		const fields = req.body.fields;
+        Type.find(filter,fields)
+			.limit(limit)
+            .then(types => {
+                res.send(types.map(type => type.publicData()));
+            }).catch(next);
+    }
+}
+
+
+//Modify type by ID (PUT)
 const modifyType = (req, res, next) => {
-	Type.findOne({type: req.params.type})
+	Type.findOne({number: req.params.id}) //revisar
 	.then(type => {
 		if(!type){
 			return res.sendStatus(404);
 		}
-		const nuevaInfo = req.body;
-		if (nuevaInfo.type){
-			type.type = nuevaInfo.type;
+		const newInfoType = req.body;
+		if (newInfoType.type){
+			type.type = newInfoType.type;
 		}
-		if (nuevaInfo.imageUrl){
-			type.imageUrl = nuevaInfo.imageUrl;
+		if (newInfoType.imageUrl){
+			type.imageUrl = newInfoType.imageUrl;
 		}
 		type.save()
 			.then(updated => {
@@ -53,17 +61,20 @@ const modifyType = (req, res, next) => {
 	.catch(next);
 }
 
-
+//Delete type by ID (DELETE)
 const deleteType = (req, res, next) => {
-	Type.findOne({type: req.params.type})
+	Type.findOne({number: req.params.number})
 	.then(del => {
-        // TODO: Verificar que elimine algo
+		if (!deleteType) {
+			return res.status(404).send(`The ${req.params.id} type hasn't been found`);
+		}
 		res.status(200)
-		.send(`The Type with name ${req.params.type} has been deleted successfully`);
+		.send(`The ${req.params.type} type has been deleted successfully`);
 	})
 	.catch(next);
 }
 
+//Count the number of registers of types in the DB (rute /count)
 const countType = (req, res, next) => {
     Type.aggregate([
         {'$count' : 'total'}
@@ -72,9 +83,9 @@ const countType = (req, res, next) => {
     }).catch(next)
 }
 
-const toParagraphCase = (string) => {
+/* const toParagraphCase = (string) => {
     return string[0].toUpperCase() + string.slice(1);
-}
+} */
 
 module.exports = {
 	getType,
