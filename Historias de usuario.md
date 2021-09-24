@@ -266,7 +266,7 @@ Para: Cambiar las debilidades de los Pokemónes almacenados en la base de datos
 **Para**: Borrar un registro de categoría de Pokemón almacenado en la base de datos
 
 - ### *Insertar* 
--
+
 **Como**: Administrador  
 **Quiero**: Conectarme a una API  
 **Para**: Insertar un registro de categoría de Pokemón a la base de datos
