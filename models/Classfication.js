@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
 const ClassficationSchema = new mongoose.Schema({
-    name: { type: String },
+    number: { type: Number },
+    name: { type: String }
 }, { collection: 'Classfication' });
 
 ClassficationSchema.methods.publicData = function () {
     return {
-        name: this.name,
+        number: this.number,
+        name: this.name
     };
 }
 
