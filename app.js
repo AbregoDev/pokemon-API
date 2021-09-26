@@ -15,11 +15,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Mongoose config
-const user = 'pokemon';
-const pass = 'gAR3PWIaw70zUJO4';
-const db = 'BEDU-WEB';
-const connectionString = `mongodb+srv://${user}:${pass}@cluster0.ewfpk.mongodb.net/${db}?retryWrites=true&w=majority`;
-mongoose.connect(connectionString);
+mongoose.connect(
+	process.env.MONGO_URI, // obtiene la url de conexión desde las variables de entorno
+	{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
+  );
 
 // Se habilita el debug
 mongoose.set("debug", true);
@@ -40,7 +39,6 @@ app.use('/v1', require('./routes'));
 
 
 // Start server
-const PORT = 3000;
-app.listen(PORT, () => {
-	console.log(`Server listening on http://localhost:${PORT}/v1`);
-});
+app.listen(process.env.PORT, () => {
+	console.log(`Server listening on port ${process.env.PORT}`)
+})
