@@ -10,7 +10,7 @@ const express = require('express');
 const app = express();
 
 // Body Parser
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
