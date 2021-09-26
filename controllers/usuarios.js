@@ -3,35 +3,52 @@ const mongoose = require("mongoose")
 const Usuario = mongoose.model("Usuario")
 const passport = require('passport');
 
+mongoose.set("debug", true);
+
 function crearUsuario(req, res, next) {
     // Instanciaremos un nuevo usuario utilizando la clase usuario
+    console.log("Llego request crear usuario");
     const body = req.body;
     const password = body.password
 
     delete body.password
     const usuario = new Usuario(body)
     usuario.crearPassword(password)
-    usuario.save().then(user => {                                         //Guardando nuevo usuario en MongoDB.
+    // Se guarda nuevo usuario en MongoDB.
+    usuario.save().then(user => {                                         
         return res.status(201).json(user.toAuthJSON())
     }).catch(next)
 }
 
-function obtenerUsuarios(req, res, next) {                              //Obteniendo usuario desde MongoDB.
-    Usuario.findById(req.usuario.id, (err, user) => {
+function obtenerUsuarios(req, res, next) {    
+    // Se obtiene usuario desde MongoDB.    
+    console.log("Llamada obtener usuario   ....");    
+    console.log(req.body._id);                   
+    //Usuario.findById(req.usuario.id, (err, user) => {
+    Usuario.findById(req.body._id, (err, user) => {
+            console.log(user);
+            console.log(err);
         if (!user || err) {
+            console.log("Error");
             return res.sendStatus(401)
+        }else{
+            return res.status(201).json(user.publicData());
         }
-            return res.json(user.publicData());
     }).catch(next);
 }
 
 function modificarUsuario(req, res, next) {
-    console.log(req.usuario)
-    Usuario.findById(req.usuario.id).then(user => {
+    //console.log(req.usuario)
+    console.log("  ....................        Llego modificar    ...............");
+    console.log(req.body);
+    //Usuario.findById(req.usuario.id).then(user => {
+    Usuario.findById(req.body._id).then(user => {
         if (!user) { return res.sendStatus(401); }
         let nuevaInfo = req.body
         if (typeof nuevaInfo.username !== 'undefined')
             user.username = nuevaInfo.username
+        if (typeof nuevaInfo.apellido !== 'undefined')
+            user.apellido = nuevaInfo.apellido
         if (typeof nuevaInfo.bio !== 'undefined')
             user.bio = nuevaInfo.bio
         if (typeof nuevaInfo.foto !== 'undefined')
@@ -43,19 +60,23 @@ function modificarUsuario(req, res, next) {
         if (typeof nuevaInfo.password !== 'undefined')
             user.crearPassword(nuevaInfo.password)
         user.save().then(updatedUser => {    //Guardando usuario modificado en MongoDB.
-            res.status(201).json(updatedUser.publicData())
-        }).catch(next)
-    }).catch(next)
+            return res.status(201).json(updatedUser.publicData())
+        }).catch(next);
+    }).catch(next);
 }
 
-function eliminarUsuario(req, res) {
-  // únicamente borra a su propio usuario obteniendo el id del token
-  Usuario.findOneAndDelete({ _id: req.usuario.id }).then(r => {         //Buscando y eliminando usuario en MongoDB.
-    res.status(200).send(`Usuario ${req.params.id} eliminado: ${r}`);
-  })
+
+//const  eliminarUsuario = (req, res, next) => {  
+function  eliminarUsuario(req, res, next){ 
+  // Borra a su propio usuario obteniendo el id del token
+  console.log("Llego solicitud de eliminar");
+  Usuario.findOneAndDelete({ _id: req.usuario.id }).then(r => {         // Buscando y eliminando usuario en MongoDB.
+    return res.status(200).send(`Usuario ${req.params.id} eliminado: ${r}`);
+  }).catch(next);
 }
 
 function iniciarSesion(req, res, next) {
+    console.log("........           Iniciar sesion -------------");
     if (!req.body.email) {
         return res.status(422).json({ errors: { email: "no puede estar vacío" } });
     }

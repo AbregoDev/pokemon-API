@@ -1,12 +1,16 @@
 //Configuracion de base de datos
 const mongoose = require('mongoose');
 
+
+
 // Express
 const express = require('express');
+
+
 const app = express();
 
 // Body Parser
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -17,16 +21,23 @@ const db = 'BEDU-WEB';
 const connectionString = `mongodb+srv://${user}:${pass}@cluster0.ewfpk.mongodb.net/${db}?retryWrites=true&w=majority`;
 mongoose.connect(connectionString);
 
+// Se habilita el debug
 mongoose.set("debug", true);
 
 //Modelos
 require('./models/Pokemon');
 require('./models/Gen');
 require('./models/Type');
-require('./models/Classfication')
+require('./models/Classfication');
+require('./models/Usuario');
+
+
+// Configuracion de passport
+require('./config/passport');  
 
 //Routes
 app.use('/v1', require('./routes'));
+
 
 // Start server
 const PORT = 3000;
