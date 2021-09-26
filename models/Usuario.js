@@ -36,7 +36,7 @@ ubicacion: String,
 telefono: String,
 bio: String,
 foto: String,
-tipo: { type: String, enum: ['normal', 'anunciante'] },
+tipo: { type: String, enum: ['Viewer', 'Administrator'] },
 hash: String, //este campo se utilizará para la sesión
 salt: String, //este campo se utilizará para la sesión
 },
