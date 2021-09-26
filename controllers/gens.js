@@ -15,19 +15,8 @@ const createGen = (req, res, next) => {
 const getGen = (req, res, next) => {
 	if (req.params.id) {
         const fields = req.body.fields;
-        Gen.findOne({ number: req.params.id}, fields)
+        Gen.findOne({ genNumber: req.params.id}, fields)
             .then(gen => { 
-                if(gen) {
-                    res.status(200).send(gen.publicData());
-                } else {
-                    res.status(404).send('Gen not found');
-                }
-            })
-            .catch(next);
-    } else if (req.params.name) {
-        const fields = req.body.fields;
-        Gen.findOne({ name: req.params.name}, fields)
-            .then(gen => {
                 if(gen) {
                     res.status(200).send(gen.publicData());
                 } else {
@@ -49,7 +38,7 @@ const getGen = (req, res, next) => {
 
 //Modify gen by id (PUT)
 const modifyGen = (req, res, next) => {
-    Gen.findOne({ number: req.params.id })
+    Gen.findOne({ genNumber: req.params.id })
         .then(gen => {
             if (!gen) {
                 return res.sendStatus(404);
@@ -57,8 +46,8 @@ const modifyGen = (req, res, next) => {
             
             const newInfoGen = req.body;
 
-            if(newInfoGen.number) {
-                gen.number = newInfoGen.number
+            if(newInfoGen.genNumber) {
+                gen.genNumber = newInfoGen.genNumber
             }
             if(newInfoGen.name) {
                 gen.name = newInfoGen.name
@@ -74,12 +63,11 @@ const modifyGen = (req, res, next) => {
 
 //Delete gen by id (DELETE)
 const deleteGen = (req, res, next) => {
-    Gen.findOneAndDelete({ number: req.params.id })
+    Gen.findOneAndDelete({ genNumber: req.params.id })
         .then(deletedGen => {
             if(!deletedGen) {
                 return res.status(404).send(`Generation ${req.params.id} hasn't been found`);
             }
-
             res.status(200)
                 .send(`The Generation ${req.params.id} has been deleted successfully`);
         })

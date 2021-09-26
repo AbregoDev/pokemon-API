@@ -23,7 +23,7 @@ mongoose.set("debug", true);
 require('./models/Pokemon');
 require('./models/Gen');
 require('./models/Type');
-require('./models/Classfication')
+require('./models/Classification')
 
 //Routes
 app.use('/v1', require('./routes'));
