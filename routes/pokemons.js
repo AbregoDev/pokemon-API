@@ -7,8 +7,9 @@ const {
     modifyPokemon,
     deletePokemon,
 } = require('../controllers/pokemons');
+const auth = require('./auth');
 
-router.get('/', getPokemon);
+router.get('/',auth.requerido, getPokemon);
 router.get ('/count', countPokemon);
 router.get ('/:id', getPokemon);
 router.post('/', createPokemon);
