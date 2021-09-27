@@ -18,6 +18,8 @@ const getPokemon = (req, res, next) => {
 
         Pokemon.findOne({ pokedexNumber: req.params.id}, fields)
             .then(pokemon => { 
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
                 if(pokemon) {
                     res.status(200).send(pokemon.publicData());
                 } else {
