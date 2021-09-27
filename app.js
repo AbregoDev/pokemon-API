@@ -3,12 +3,15 @@ const mongoose = require('mongoose');
 
 
 
+
 // Express
 const express = require('express');
 
 
 const app = express();
+const cors = require('cors');
 
+app.use(cors);
 // Body Parser
 //const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }));
