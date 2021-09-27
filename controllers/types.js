@@ -83,9 +83,6 @@ const countType = (req, res, next) => {
     }).catch(next)
 }
 
-/* const toParagraphCase = (string) => {
-    return string[0].toUpperCase() + string.slice(1);
-} */
 
 module.exports = {
 	getType,
