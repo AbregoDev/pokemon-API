@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const GenSchema = new mongoose.Schema({
-    number: { type: Number },
+    genNumber: { type: Number },
     name: { type: String },
 }, { collection: 'Gen' });
 
 GenSchema.methods.publicData = function () {
     return {
-        number: this.number,
+        genNumber: this.genNumber,
         name: this.name,
     };
 }

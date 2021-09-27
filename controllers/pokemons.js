@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Pokemon = mongoose.model("Pokemon")
 
+//Create new pokemon (POST)
 const createPokemon = (req, res, next) => {
     const pokemon = new Pokemon(req.body);
     pokemon.save()
@@ -10,6 +11,7 @@ const createPokemon = (req, res, next) => {
         .catch(next);
 }
 
+//Get all pokemon by ID (GET)
 const getPokemon = (req, res, next) => {
     if (req.params.id) {
         const fields = req.body.fields;
@@ -19,7 +21,7 @@ const getPokemon = (req, res, next) => {
                 if(pokemon) {
                     res.status(200).send(pokemon.publicData());
                 } else {
-                    res.status(404).send('No se ha encontrado');
+                    res.status(404).send('Pokemon not found');
                 }
             })
             .catch(next);
@@ -36,6 +38,7 @@ const getPokemon = (req, res, next) => {
     }
 }
 
+//Count the number of registers of pokemon in the DB (rute /count)
 const countPokemon = (req, res, next) => {
     Pokemon.countDocuments({}, function (err, count) {
         if(err) {
@@ -47,6 +50,7 @@ const countPokemon = (req, res, next) => {
     });
 }
 
+//Modify pokemon by ID (PUT)
 const modifyPokemon = (req, res, next) => {
     Pokemon.findOne({ pokedexNumber: req.params.id })
         .then(pokemon => {
@@ -86,6 +90,7 @@ const modifyPokemon = (req, res, next) => {
         }).catch(next)
 }
 
+//Delete pokemon bby ID (DELETE)
 const deletePokemon = (req, res, next) => {
     Pokemon.findOneAndDelete({ pokedexNumber: req.params.id })
         .then(deletedPokemon => {

@@ -29,9 +29,8 @@ mongoose.set("debug", true);
 require('./models/Pokemon');
 require('./models/Gen');
 require('./models/Type');
-require('./models/Classfication');
 require('./models/Usuario');
-
+require('./models/Classification')
 
 // Configuracion de passport
 require('./config/passport');  
@@ -41,6 +40,6 @@ app.use('/v1', require('./routes'));
 
 
 // Iniciando el servidor...
-var server = app.listen(process.env.PORT || 3000, function () {
-	console.log('Escuchando en el puerto ' + server.address().port);
-  });
+const server = app.listen(process.env.PORT || 3000, function () {
+    console.log('Escuchando en el puerto ' + server.address().port);
+});

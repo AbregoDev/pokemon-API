@@ -9,17 +9,17 @@ En este proyecto contamos con 2 tipos de usuarios, viewer y administrator, donde
 
 ### Estructura del proyecto
 
-El proyecto se realizó utilizando el patrón MVC
+El proyecto se realizó utilizando el patrón MVC.
 
 Así mismo se contará con 4 entidades: Pokémon, Generación, Tipo y Categoría, cada una con características individuales.
 
  - **Pokémon**: Número de podédex, nombre, url de imagen, generación, tipo, categoría y debilidades
  - **Generación**: Número y nombre.
- - **Tipo**: Nombre y url de imagen.
- - **Categoría**: Nombre
+ - **Tipo**: Número, nombre y url de imagen.
+ - **Categoría**: Número y nombre.
 
 Todas las entidades tienen funciones CRUD: Consultas, inserciones, modificaciones y eliminación de registros.
-#### Historias de usuario y Diagramas de caso de uso
+#### Historias de usuario y Diagramas de caso de uso:
 - [Historias de Usuario](https://github.com/AbregoDev/pokemon-API/blob/main/Historias%20de%20usuario.md)
 - [Diagramas de Caso de uso](https://miro.com/app/board/o9J_lzbh7-k=/)
  
