@@ -48,11 +48,11 @@ Cuando termine y estés listo para colaborar puedes iniciar un servidor local ut
 ### Enlaces de entrega
 #### Documentación en [Swagger](https://app.swaggerhub.com/apis-docs/pepetellez/pokemon-API/)
 
-#### Tests en [Insomnia](https://github.com/AbregoDev/pokemon-API/blob/main/InsomniaConfigs.json)
+#### Prueba los servicios importando nuestro [Tests de servicios en Insomnia](https://github.com/AbregoDev/pokemon-API/blob/main/InsomniaServiceTest.json)
 
-#### [API](https://pokemon-bedu.herokuapp.com/v1)
+#### API desplegada en Heroku[Pokemon-API](https://pokemon-bedu.herokuapp.com/v1)
 
-#### [Vídeo](https://drive.google.com/file/d/1pJnQ3JMlkSD_C9buNWlRwg2Gbt_Dl4qp/view?usp=sharing) 
+#### Presentación en [Vídeo](https://drive.google.com/file/d/1pJnQ3JMlkSD_C9buNWlRwg2Gbt_Dl4qp/view?usp=sharing) 
 
 ### Colaboradores:
 > - [Ernesto Velasco Valdez](https://github.com/Ernestve)
