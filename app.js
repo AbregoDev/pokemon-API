@@ -12,6 +12,10 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors);
+app.get('/allow-cors', function(request, response) {
+	response.set('Access-Control-Allow-Origin', '*');
+	response.sendFile(__dirname + '/message.json');
+  });
 // Body Parser
 //const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }));
