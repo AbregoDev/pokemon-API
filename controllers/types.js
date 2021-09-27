@@ -11,26 +11,26 @@ const createType = (req, res, next) => {
         .catch(next);
 }
 
+
 //Get all types by ID (GET)
 const getType = (req, res, next) => {
 	if (req.params.id) {
-        //const paragraphString = toParagraphCase(req.params.id.toLowerCase());
-        Type.findOne({ type: paragraphString })
+        const fields = req.body.fields;
+        Type.findOne({ number: req.params.id}, fields)
             .then(type => { 
                 if(type) {
-					console.log(type);
-                    res.status(200).send(type.map(classfication => classfication.publicData()));
+                    res.status(200).send(type.publicData());
                 } else {
                     res.status(404).send('Type not found');
                 }
             })
             .catch(next);
     } else {
-		const limit = req.body.limit;
-		const filter = req.body.filter;
-		const fields = req.body.fields;
-        Type.find(filter,fields)
-			.limit(limit)
+        const limit = req.body.limit;
+        const filter = req.body.filter;
+        const fields = req.body.fields;
+        Type.find(filter, fields)
+            .limit(limit)
             .then(types => {
                 res.send(types.map(type => type.publicData()));
             }).catch(next);
@@ -83,9 +83,6 @@ const countType = (req, res, next) => {
     }).catch(next)
 }
 
-/* const toParagraphCase = (string) => {
-    return string[0].toUpperCase() + string.slice(1);
-} */
 
 module.exports = {
 	getType,
