@@ -14,11 +14,13 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+var isProduction = process.env.NODE_ENV === 'production';
 // Mongoose config
 mongoose.connect(
-	process.env.MONGO_URI, // obtiene la url de conexión desde las variables de entorno
+	process.env.MONGODB_URI, // obtiene la url de conexión desde las variables de entorno
 	{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
-  );
+);
+
 
 // Se habilita el debug
 mongoose.set("debug", true);
@@ -38,7 +40,7 @@ require('./config/passport');
 app.use('/v1', require('./routes'));
 
 
-// Start server
-app.listen(process.env.PORT, () => {
-	console.log(`Server listening on port ${process.env.PORT}`)
-})
+// Iniciando el servidor...
+var server = app.listen(process.env.PORT || 3000, function () {
+	console.log('Escuchando en el puerto ' + server.address().port);
+  });

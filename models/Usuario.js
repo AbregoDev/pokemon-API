@@ -5,7 +5,8 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');                          
 
 const secret = require('../config').secret;                   
-
+console.log("                 ###########################             ")
+console.log(secret);
 
 // Importando mongoose.
 const mongoose = require('mongoose');  

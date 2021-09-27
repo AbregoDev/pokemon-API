@@ -9,11 +9,11 @@ const {
 } = require('../controllers/pokemons');
 const auth = require('./auth');
 
-router.get('/',auth.requerido, getPokemon);
+router.get('/', getPokemon);
 router.get ('/count', countPokemon);
 router.get ('/:id', getPokemon);
-router.post('/', createPokemon);
-router.put('/:id', modifyPokemon);
-router.delete('/:id', deletePokemon);
+router.post('/', auth.requerido, createPokemon);
+router.put('/:id', auth.requerido, modifyPokemon);
+router.delete('/:id', auth.requerido, deletePokemon);
 
 module.exports = router;

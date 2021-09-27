@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PokemonSchema = new mongoose.Schema({
     pokedexNumber: { type: Number, required: true },
     name: { type: String, required: true },
-    classfication: { type: String, required: true },
+    classfication: { type: String, required: false },
     gen: { type: Number },
     imageUrl: { type: String },
     types: [String],

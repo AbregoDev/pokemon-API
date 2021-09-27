@@ -7,7 +7,6 @@ mongoose.set("debug", true);
 
 function crearUsuario(req, res, next) {
     // Instanciaremos un nuevo usuario utilizando la clase usuario
-    console.log("Llego request crear usuario");
     const body = req.body;
     const password = body.password
 
@@ -22,9 +21,6 @@ function crearUsuario(req, res, next) {
 
 function obtenerUsuarios(req, res, next) {    
     // Se obtiene usuario desde MongoDB.    
-    console.log("Llamada obtener usuario   ....");    
-    console.log(req.body._id);                   
-    //Usuario.findById(req.usuario.id, (err, user) => {
     Usuario.findById(req.body._id, (err, user) => {
             console.log(user);
             console.log(err);
@@ -38,10 +34,6 @@ function obtenerUsuarios(req, res, next) {
 }
 
 function modificarUsuario(req, res, next) {
-    //console.log(req.usuario)
-    console.log("  ....................        Llego modificar    ...............");
-    console.log(req.body);
-    //Usuario.findById(req.usuario.id).then(user => {
     Usuario.findById(req.body._id).then(user => {
         if (!user) { return res.sendStatus(401); }
         let nuevaInfo = req.body
@@ -66,17 +58,14 @@ function modificarUsuario(req, res, next) {
 }
 
 
-//const  eliminarUsuario = (req, res, next) => {  
 function  eliminarUsuario(req, res, next){ 
   // Borra a su propio usuario obteniendo el id del token
-  console.log("Llego solicitud de eliminar");
   Usuario.findOneAndDelete({ _id: req.usuario.id }).then(r => {         // Buscando y eliminando usuario en MongoDB.
     return res.status(200).send(`Usuario ${req.params.id} eliminado: ${r}`);
   }).catch(next);
 }
 
 function iniciarSesion(req, res, next) {
-    console.log("........           Iniciar sesion -------------");
     if (!req.body.email) {
         return res.status(422).json({ errors: { email: "no puede estar vacío" } });
     }
