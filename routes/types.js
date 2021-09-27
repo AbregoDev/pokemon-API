@@ -8,11 +8,13 @@ const {
     countType,
 } = require('../controllers/types');
 
+const auth = require('./auth');
+
 router.get('/', getType);
 router.get('/count', countType);
 router.get('/:id', getType);
-router.post('/', createType);
-router.put('/:id', modifyType);
-router.delete('/:id', deleteType);
+router.post('/', auth.requerido, createType);
+router.put('/:id', auth.requerido, modifyType);
+router.delete('/:id', auth.requerido, deleteType);
 
 module.exports = router;
