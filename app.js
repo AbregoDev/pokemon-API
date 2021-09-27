@@ -1,5 +1,6 @@
 //Configuracion de base de datos
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 
 
@@ -9,7 +10,7 @@ const express = require('express');
 
 
 const app = express();
-
+app.use(cors());
 // Body Parser
 //const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false }));
