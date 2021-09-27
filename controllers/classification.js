@@ -38,6 +38,7 @@ const getClassification = (req, res, next) => {
 }
 //Modify classification by ID (PUT)
 const modifyClassification = (req, res, next) => {
+	console.log(" -------------------------PUT -------------------")
 	Classification.findOne({ number: req.params.id }) 
 	.then(classification => {
 		if (!classification) {
@@ -45,7 +46,7 @@ const modifyClassification = (req, res, next) => {
 		}
 		const newInfoClassification = req.body;
 		if (newInfoClassification.name) {
-			classification.name = newInfoClassifcation.name
+			classification.name = newInfoClassification.name
 		}
 		
 		classification.save()
