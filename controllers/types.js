@@ -16,7 +16,7 @@ const createType = (req, res, next) => {
 const getType = (req, res, next) => {
 	if (req.params.id) {
         const fields = req.body.fields;
-        Type.findOne({ number: req.params.id}, fields)
+        Type.findOne({ type: req.params.id}, fields)
             .then(type => { 
                 if(type) {
                     res.status(200).send(type.publicData());
